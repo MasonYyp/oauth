@@ -1,0 +1,10 @@
+server:
+  port: 8082
+  servlet:
+    context-path: /api
+
+spring:
+  # 设置应用名
+  application:
+    name: oauth-api
+

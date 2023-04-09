@@ -1,0 +1,41 @@
+server:
+  port: 8083
+
+spring:
+  # 设置应用名
+  application:
+    name: oauth-gateway
+
+  cloud:
+    gateway:
+      routes:
+        # 转发API数据
+        - id: auth-api
+          uri: http://127.0.0.1:8082
+          predicates:
+            - Path=/api/**
+        # 转发权限配置
+        - id: auth-route
+          uri: http://127.0.0.1:8081
+          predicates:
+            - Path=/oauth/token
+
+  # 配置oauth-server的redis地址
+  redis:
+    host: 192.168.108.200
+    port: 6379
+    password: 123456
+    jedis:
+      #连接超时时间
+      timeout: 10000
+      # 连接池
+      pool:
+        #最大连接数
+        max-active: 8
+        #最大阻塞等待时间(负数表示没限制)
+        max-wait: -1
+        #最大空闲
+        max-idle: 8
+        #最小空闲
+        min-idle: 0
+
